@@ -3,7 +3,7 @@
 // .NET
 using System;
 // Third-party
-
+using Tobii.Research;
 
 namespace EyeTracking
 {
