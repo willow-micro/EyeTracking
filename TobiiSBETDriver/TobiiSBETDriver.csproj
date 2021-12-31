@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="Tobii.Research.x64" Version="1.9.0.1198" />
   </ItemGroup>
 
