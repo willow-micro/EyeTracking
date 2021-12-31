@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>EyeTracking</RootNamespace>
+    <Version>0.0.1</Version>
+    <Description>Process pupil data (diameter &amp; validity) and compute LF/HF ratio and more.</Description>
+  </PropertyGroup>
+
+</Project>
