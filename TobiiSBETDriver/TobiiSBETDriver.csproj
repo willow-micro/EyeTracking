@@ -4,8 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EyeTracking</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>0.0.1</Version>
+    <Version>0.0.1-alpha.1</Version>
     <Description>A simplified driver library for Tobii screen-based eye trackers. Requires x64 CPU.</Description>
+    <Copyright>Copyright (C) 2021-2022 T.Kawamura</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>NugetSBETDriverIcon.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageTags>EyeTracking</PackageTags>
+    <Company>Wakayama University Human Centered Design Laboratory</Company>
+    <Authors>Takuma Kawamura</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -19,6 +26,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="NugetSBETDriverIcon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
