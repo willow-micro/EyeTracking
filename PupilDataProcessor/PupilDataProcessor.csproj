@@ -7,4 +7,12 @@
     <Description>Process pupil data (diameter &amp; validity) and compute LF/HF ratio and more.</Description>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\taku\source\repos\EyeTracking\PupilDataProcessor\PupilDataProcessor.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
+  </ItemGroup>
+
 </Project>

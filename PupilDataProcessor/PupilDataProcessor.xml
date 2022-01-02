@@ -1,0 +1,489 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PupilDataProcessor</name>
+    </assembly>
+    <members>
+        <member name="T:EyeTracking.FIFO`1">
+            <summary>
+            A FIFO Buffer Implementation for Visual C# using Generics.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.FIFO`1.buffer">
+            <summary>
+            Buffer
+            </summary>
+        </member>
+        <member name="F:EyeTracking.FIFO`1.getIndex">
+            <summary>
+            Current Get Index
+            </summary>
+        </member>
+        <member name="F:EyeTracking.FIFO`1.putIndex">
+            <summary>
+            Current Put Index
+            </summary>
+        </member>
+        <member name="F:EyeTracking.FIFO`1.availableCount">
+            <summary>
+            Current available data count
+            </summary>
+        </member>
+        <member name="F:EyeTracking.FIFO`1.hasPutIndexReachedMax">
+            <summary>
+            When the put index reached the length of the buffer, it will be true
+            </summary>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.#ctor(System.Int32)">
+            <summary>
+            Default Constructor
+            </summary>
+            <param name="bufferSize">Buffer Size</param>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.#ctor(EyeTracking.FIFO{`0})">
+            <summary>
+            Copy Constructor
+            </summary>
+            <param name="previousFIFO"></param>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.Clear">
+            <summary>
+            Clear the buffer
+            </summary>
+            <remarks>
+            Actually, it only initializes indexes.
+            </remarks>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.GetBufferSize">
+            <summary>
+            Get Buffer Size specified in the constructor
+            </summary>
+            <returns>Buffer size</returns>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.GetData">
+            <summary>
+            Get a data from the buffer
+            </summary>
+            <returns>Generic Data</returns>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.PeekData">
+            <summary>
+            Get a data from the buffer (Don't touch indexes)
+            </summary>
+            <remarks>
+            If you call this twice, same data will be delivered.
+            </remarks>
+            <returns>Generic Data</returns>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.PutData(`0)">
+            <summary>
+            Put a data to the buffer
+            </summary>
+            <remarks>
+            When the buffer is full, it OVERWRITES existing data.
+            </remarks>
+            <param name="data">Generic Data</param>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.GetAvailableDataCount">
+            <summary>
+            Get Available Data Count
+            </summary>
+            <returns>Data Count</returns>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.PeekAllDataMixed">
+            <summary>
+            Get all data in the buffer, Mixed-up
+            </summary>
+            <returns>Data Array</returns>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.PeekAllDataOrdered">
+            <summary>
+            Get all data in the buffer, Ordered from oldest to newest
+            </summary>
+            <returns>Data Array</returns>
+        </member>
+        <member name="M:EyeTracking.FIFO`1.op_Addition(EyeTracking.FIFO{`0},`0)">
+            <summary>
+            Operator overload for "+=" operator
+            </summary>
+            <param name="fifo">Destination FIFO</param>
+            <param name="data">Put data(Generic)</param>
+            <returns>New FIFO</returns>
+        </member>
+        <member name="T:EyeTracking.LFHFComputer">
+            <summary>
+            A Class for computing lfhf ratio from pupil data array
+            </summary>
+            <remarks>
+            Use "power spectrum" ratio as result
+            </remarks>
+        </member>
+        <member name="P:EyeTracking.LFHFComputer.LFRange">
+            <summary>
+            Frequency range of lf
+            </summary>
+        </member>
+        <member name="P:EyeTracking.LFHFComputer.HFRange">
+            <summary>
+            Frequency range of hf
+            </summary>
+        </member>
+        <member name="P:EyeTracking.LFHFComputer.WindowSize">
+            <summary>
+            Window size
+            </summary>
+        </member>
+        <member name="P:EyeTracking.LFHFComputer.FrequencyResolution">
+            <summary>
+            Frequency resolution
+            </summary>
+        </member>
+        <member name="F:EyeTracking.LFHFComputer.window">
+            <summary>
+            Window for applying
+            </summary>
+        </member>
+        <member name="M:EyeTracking.LFHFComputer.#ctor(System.Int32,EyeTracking.FrequencyRange,EyeTracking.FrequencyRange,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="processFrequency">[int] Frequency for processing pupil data</param>
+            <param name="lfRange">[FrequencyRange] Frequency range of LF</param>
+            <param name="hfRange">[FrequencyRange] Frequency range of HF</param>
+            <param name="windowSize">[int] Window size, Length of pupil data array. (2^0 to 2^16)</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">The given processFrequency or windowSize is incorrect</exception>
+        </member>
+        <member name="M:EyeTracking.LFHFComputer.#ctor(System.Int32,EyeTracking.FrequencyRange,EyeTracking.FrequencyRange,System.Int32,EyeTracking.WindowFunction)">
+            <summary>
+            Overloaded constructor for select window function.
+            </summary>
+            <param name="processFrequency">[int] Frequency for processing pupil data</param>
+            <param name="lfRange">[FrequencyRange] Frequency range of LF</param>
+            <param name="hfRange">[FrequencyRange] Frequency range of HF</param>
+            <param name="windowSize">[int] Window size, Length of pupil data array. (2^0 to 2^16)</param>
+            <param name="windowFunction">[WindowFunction] Window Function</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">The given processFrequency or windowSize is incorrect</exception>
+        </member>
+        <member name="M:EyeTracking.LFHFComputer.ComputeLFHFFrom(EyeTracking.PupilDataForProcess[],System.Single)">
+            <summary>
+            Compute LF/HF ratio from the given pupil data array
+            </summary>
+            <remarks>
+            Use the given average if the first or last diameter is invalid, so lighter than the other one.
+            </remarks>
+            <param name="pupilDataArray">[PupilDataForProcess[]] Pupil data array</param>
+            <param name="pupilDiameterAverage">[float] Average of valid pupil diameters</param>
+            <returns>[float] LF/HF ratio</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Pupil data array is too long or too short</exception>
+        </member>
+        <member name="M:EyeTracking.LFHFComputer.ComputeLFHFFrom(EyeTracking.PupilDataForProcess[])">
+            <summary>
+            [Overload] Compute LF/HF ratio from the given pupil data array
+            </summary>
+            <remarks>
+            Calculate the average of all valid pupil diameters automatically.
+            </remarks>
+            <param name="pupilDataArray">[PupilDataForProcess[]] Pupil data array</param>
+            <returns>[float] LF/HF ratio</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Pupil data array is too long or too short</exception>
+        </member>
+        <member name="M:EyeTracking.LFHFComputer.LerpPupilDiameter(EyeTracking.PupilDataForProcess[],System.Single)">
+            <summary>
+            Linear Interpolate pupil diameters, if necessary.
+            If the first or last data is invalid (need for interpolate), replace it by the given average of valid diameters.
+            </summary>
+            <param name="pupilDataArray">[PupilDataForProcess[]] Pupil data array</param>
+            <param name="validAverage">[float] Average of all valid pupil dimeters</param>
+            <returns>[float[]] Interpolated pupil diameters</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Pupil data array is too long or too short</exception>
+        </member>
+        <member name="M:EyeTracking.LFHFComputer.ApplyWindow(System.Single[])">
+            <summary>
+            Apply specified window in the constructor.
+            </summary>
+            <param name="floatArray">Data for windowing</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Array is too long or too short</exception>
+        </member>
+        <member name="M:EyeTracking.LFHFComputer.ExecuteFFT(System.Single[])">
+            <summary>
+            Execute FFT
+            </summary>
+            <param name="floatArray">Data for convert</param>
+            <returns>[Complex[]] Array of fourier spectrums</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Array is too long or too short</exception>
+        </member>
+        <member name="T:EyeTracking.PupilDataProcessor">
+            <summary>
+            Main Class
+            </summary>
+            <remarks>
+            All floating point variables are float.
+            </remarks>
+        </member>
+        <member name="P:EyeTracking.PupilDataProcessor.WindowSize">
+            <summary>
+            Window size (points) for LFHF fft
+            </summary>
+        </member>
+        <member name="P:EyeTracking.PupilDataProcessor.HopSize">
+            <summary>
+            Hop size (points - overlap) for LFHF fft
+            </summary>
+        </member>
+        <member name="P:EyeTracking.PupilDataProcessor.LatestLFHF">
+            <summary>
+            Latest LFHF ratio
+            </summary>
+        </member>
+        <member name="P:EyeTracking.PupilDataProcessor.LatestMinDiameter">
+            <summary>
+            Latest minimum diameter
+            </summary>
+        </member>
+        <member name="P:EyeTracking.PupilDataProcessor.LatestMaxDiameter">
+            <summary>
+            Latest maximum diameter
+            </summary>
+        </member>
+        <member name="P:EyeTracking.PupilDataProcessor.LatestAverageValidDiameter">
+            <summary>
+            Latest average of all valid diameters
+            </summary>
+        </member>
+        <member name="F:EyeTracking.PupilDataProcessor.lfhfComputer">
+            <summary>
+            LFHF Computer instance
+            </summary>
+        </member>
+        <member name="F:EyeTracking.PupilDataProcessor.dataBuffer">
+            <summary>
+            Pupil data buffer
+            </summary>
+        </member>
+        <member name="F:EyeTracking.PupilDataProcessor.hopCount">
+            <summary>
+            Hop count (new data count) for LFHF
+            </summary>
+        </member>
+        <member name="F:EyeTracking.PupilDataProcessor.hasDataBufferFilledOnce">
+            <summary>
+            If the data buffer is filled with pupil data once, be true
+            </summary>
+        </member>
+        <member name="F:EyeTracking.PupilDataProcessor.validPupilDiameterCount">
+            <summary>
+            Valid pupil diameter count for average calculation
+            </summary>
+        </member>
+        <member name="M:EyeTracking.PupilDataProcessor.#ctor(System.Int32,EyeTracking.FrequencyRange,EyeTracking.FrequencyRange,System.Int32,System.Int32,EyeTracking.WindowFunction)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="eyeTrackingFrequency">Frequency of eye tracking</param>
+            <param name="lfRange">LF range</param>
+            <param name="hfRange">HF range</param>
+            <param name="lfhfWindowSize">Window size (points) for fft (2^0 to 2^16)</param>
+            <param name="lfhfHopSize">Hop size (points - overlap) for fft</param>
+            <param name="windowFunction">Window function for fft</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">The given eyeTrackingFrequency or windowSize is out of range</exception>
+        </member>
+        <member name="M:EyeTracking.PupilDataProcessor.#ctor(System.Int32,EyeTracking.FrequencyRange,EyeTracking.FrequencyRange,System.Single,System.Single)">
+            <summary>
+            Overloaded constructor, smart version
+            </summary>
+            <param name="eyeTrackingFrequency">Frequency of eye tracking</param>
+            <param name="lfRange">LF range</param>
+            <param name="hfRange">HF range</param>
+            <param name="lfhfIdealFrequencyResolution">Ideal frequency resolution for fft. Acutual resolution is same or smaller.</param>
+            <param name="lfhfComputeSpanInSec">Time span for computing LF/HF ratio.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">The given eyeTrackingFrequency or lfhfIdealFrequencyResolution is incorrect</exception>
+        </member>
+        <member name="M:EyeTracking.PupilDataProcessor.UpdateWith(EyeTracking.PupilDataForProcess)">
+            <summary>
+            Update with an pupil data
+            </summary>
+            <param name="pupilData">a new pupil data</param>
+            <returns>
+            [LFHFComputeStatus] The status after the new data was added
+            </returns>
+            <example>
+            This shows how to use this method:
+            <code>
+            private void AMethodCalledEveryCycle(float leftPD, float rightPD, bool validity)
+            {
+                PupilDataForProcess newData;
+                newData.PupilDiameter = (leftPD + rightPD) / 2.0f;
+                newData.Validity = validity;
+                if(this.lfhfProcessor.UpdateWith(newData) == LFHFComputeStatus.Ready)
+                {
+                    float lfhf = this.lfhfUtility.LatestLFHF;
+                    Debug.Print($"LFHF: {lfhf}");
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:EyeTracking.PupilDataForProcess">
+            <summary>
+            Struct type for pupil data processing
+            </summary>
+        </member>
+        <member name="M:EyeTracking.PupilDataForProcess.#ctor(System.Single,System.Boolean)">
+            <summary>
+            Initializer for pupil data
+            </summary>
+            <param name="diameter">Pupil diameter</param>
+            <param name="isvalid">Pupil data validity</param>
+        </member>
+        <member name="F:EyeTracking.PupilDataForProcess.Diameter">
+            <summary>
+            Pupil diameter
+            </summary>
+        </member>
+        <member name="F:EyeTracking.PupilDataForProcess.IsValid">
+            <summary>
+            Pupil data validity
+            </summary>
+        </member>
+        <member name="T:EyeTracking.FrequencyRange">
+            <summary>
+            Struct type for representation of frequency range
+            </summary>
+        </member>
+        <member name="M:EyeTracking.FrequencyRange.#ctor(System.Single,System.Single)">
+            <summary>
+            Initializer for freq range
+            </summary>
+            <param name="min">Min freq</param>
+            <param name="max">Max freq</param>
+        </member>
+        <member name="F:EyeTracking.FrequencyRange.Min">
+            <summary>
+            Min freq
+            </summary>
+        </member>
+        <member name="F:EyeTracking.FrequencyRange.Max">
+            <summary>
+            Max freq
+            </summary>
+        </member>
+        <member name="T:EyeTracking.LFHFComputeStatus">
+            <summary>
+            Enum type for states of lfhf computer
+            </summary>
+        </member>
+        <member name="F:EyeTracking.LFHFComputeStatus.Processing">
+            <summary>
+            In progress of processing
+            </summary>
+        </member>
+        <member name="F:EyeTracking.LFHFComputeStatus.Ready">
+            <summary>
+            Ready for get latest lfhf ratio
+            </summary>
+        </member>
+        <member name="F:EyeTracking.LFHFComputeStatus.Error">
+            <summary>
+            An error was occurred
+            </summary>
+        </member>
+        <member name="T:EyeTracking.WindowFunction">
+            <summary>
+            Enum type for window functions
+            </summary>
+            <see>https://numerics.mathdotnet.com/api/MathNet.Numerics/Window.htm</see>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.BartlettHann">
+            <summary>
+            BartlettHann
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.Blackman">
+            <summary>
+            Blackman
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.BlackmanHarris">
+            <summary>
+            BlackmanHarris
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.BlackmanNuttall">
+            <summary>
+            BlackmanNuttall
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.FlatTop">
+            <summary>
+            Flattop
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.Hamming">
+            <summary>
+            Hamming
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.HammingPeriodic">
+            <summary>
+            HammingPeriodic
+            </summary>
+            <remarks>
+            Recommended for fft purposes than normal Hamming
+            </remarks>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.Hann">
+            <summary>
+            Hann
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.HannPeriodic">
+            <summary>
+            HannPeriodic
+            </summary>
+            <remarks>
+            Recommended for fft purposes than normal Hann
+            </remarks>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.Lanczos">
+            <summary>
+            Lanczos
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.LanczosPeriodic">
+            <summary>
+            LanczosPeriodic
+            </summary>
+            <remarks>
+            Recommended for fft purposes than normal Lanczos
+            </remarks>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.Nuttall">
+            <summary>
+            Nuttall
+            </summary>
+        </member>
+        <member name="F:EyeTracking.WindowFunction.Rectangle">
+            <summary>
+            Rectangle
+            </summary>
+            <remarks>
+            aka Dirichlet
+            </remarks>
+        </member>
+        <member name="T:EyeTracking.LerpStatus">
+            <summary>
+            Enum type for states of lerp process
+            </summary>
+        </member>
+        <member name="F:EyeTracking.LerpStatus.NoInterpolationNecessary">
+            <summary>
+            Valid data is existing, no lerp needed
+            </summary>
+        </member>
+        <member name="F:EyeTracking.LerpStatus.Interpolating">
+            <summary>
+            Interpolating invalid data
+            </summary>
+        </member>
+    </members>
+</doc>
