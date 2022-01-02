@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TobiiSBETDriver</name>
+    </assembly>
+    <members>
+        <member name="T:EyeTracking.TobiiSBEyeTracker">
+            <summary>
+            A driver for Tobii screen-based eye trackers
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.device">
+            <summary>
+            Tobii.Research eye tracker object
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.screenWidth">
+            <summary>
+            Screen width
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.screenHeight">
+            <summary>
+            Screen height
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.horizontalPixelPitch">
+            <summary>
+            Horizontal pixel pitch
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.verticalPixelPitch">
+            <summary>
+            Vertical pixel pitch
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.velocityCalcType">
+            <summary>
+            Gaze angular velocity calculation type
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.fixationAngularVelocityThreshold">
+            <summary>
+            Angular velocity threshold [rad/s] for classifying eye movement, fixation or saccade
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.prevLeftGazePoint">
+            <summary>
+            [Left Eye] Previous gaze point
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.prevLeftGazeOrigin">
+            <summary>
+            [Left Eye] Previous gaze origin
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.prevRightGazePoint">
+            <summary>
+            [Right Eye] Previous gaze point
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.prevRightGazeOrigin">
+            <summary>
+            [Right Eye] Previous gaze origin
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.prevSystemTimeStamp">
+            <summary>
+            Previous System time stamp [us]
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.leftEyeNotASaccadeDurationMs">
+            <summary>
+            [Left Eye] Not a saccade time duration in ms. For fixation detection.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.rightEyeNotASaccadeDurationMs">
+            <summary>
+            [Right Eye] Not a saccade time duration in ms. For fixation detection.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.notASaccadeDurationThresholdMs">
+            <summary>
+            Not a saccade time duration threshold in ms. For fixation detection.
+            </summary>
+        </member>
+        <member name="T:EyeTracking.TobiiSBEyeTracker.OnGazeDataEventHandler">
+            <summary>
+            Delegate for the event <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>
+            </summary>
+            <param name="sender">Event sender</param>
+            <param name="e">Event arguments <seealso cref="T:EyeTracking.OnGazeDataEventArgs"/></param>
+        </member>
+        <member name="E:EyeTracking.TobiiSBEyeTracker.OnGazeData">
+            <summary>
+            EventHandler for make gaze data available from user
+            </summary>
+            <remarks>
+            If you specify a screen dimension in the constructor, that changes max values for gaze positions.
+            </remarks>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.#ctor(System.Double,System.Double,EyeTracking.VelocityCalcType,System.Int32,System.Int32)">
+            <summary>
+            Constructor. Use the first eye tracker in the <c>Tobii.Research.EyeTrackerCollection</c>.
+            </summary>
+            <param name="screenWidth">Screen width in pixels. (Max value of gaze x positions in <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>)</param>
+            <param name="screenHeight">Screen height in pixels. (Max value of gaze y positions in <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>)</param>
+            <param name="vCalcType">Calculation type for gaze angular velocity</param>
+            <param name="fixationVelocityThresh">Angular velocity threshold [rad/s] for classifying eye movements, saccade or not a saccade</param>
+            <param name="fixationDurationThresh">Time duration threshold [ms] for classifying eye movements, not a saccade or fixation</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Provided screen dimension is invalid</exception>
+            <exception cref="T:System.InvalidOperationException">Eye tracker(s) not found</exception>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.#ctor(EyeTracking.EyeTrackerIdentification,System.String,System.Double,System.Double,EyeTracking.VelocityCalcType,System.Int32,System.Int32)">
+            <summary>
+            Overloaded constructor. Use the eye tracker which has <c>identificationString</c> for <c>identificationType</c> in the <c>Tobii.Research.EyeTrackerCollection</c>.
+            </summary>
+            <param name="identificationType">The way to specify the eye tracker. <seealso cref="T:EyeTracking.EyeTrackerIdentification"/></param>
+            <param name="identificationString">The string for specify the eye tracker.</param>
+            <param name="screenWidth">Screen width in pixels. (Max value of gaze x positions in <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>)</param>
+            <param name="screenHeight">Screen height in pixels. (Max value of gaze y positions in <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>)</param>
+            <param name="vCalcType">Calculation type for gaze angular velocity</param>
+            <param name="fixationVelocityThresh">Angular velocity threshold [rad/s] for classifying eye movements, saccade or not a saccade</param>
+            <param name="fixationDurationThresh">Time duration threshold [ms] for classifying eye movements, not a saccade or fixation</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Provided screen dimension is invalid</exception>
+            <exception cref="T:System.InvalidOperationException">Eye Tracker(s) not found</exception>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetDeviceName">
+            <summary>
+            Get the Device Name for the eye tracker.
+            </summary>
+            <returns>Device Name (if there is no device, returns null)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetSerialNumber">
+            <summary>
+            Get the Serial Number for the eye tracker.
+            </summary>
+            <returns>Serial Number (if there is no device, returns null)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetModel">
+            <summary>
+            Get the Model for the eye tracker.
+            </summary>
+            <returns>Model (if there is no device, returns null)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetFirmwareVersion">
+            <summary>
+            Get the Firmware Version for the eye tracker.
+            </summary>
+            <returns>Firmware Version (if there is no device, returns null)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetRuntimeVersion">
+            <summary>
+            Get the Runtime Version for the eye tracker.
+            </summary>
+            <returns>Runtime Version (if there is no device, returns null)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetDisplayArea">
+            <summary>
+            Get the display area of the eye tracker.
+            </summary>
+            <returns>Tobii.Research.DisplayArea (if there is no device, returns null)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetScreenWidthInPixels">
+            <summary>
+            Get the screen width in pixels (same as constructor's screenWidth)
+            </summary>
+            <returns>Screen width in pixels</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetScreenHeightInPixels">
+            <summary>
+            Get the screen height in pixels (same as constructor's screenHeight)
+            </summary>
+            <returns>Screen height in pixels</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetScreenWidthInMillimeters">
+            <summary>
+            Get the screen width in millimeters
+            </summary>
+            <returns>Screen width in millimeters (if there is no eye tracker, returns NaN)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetScreenHeightInMillimeters">
+            <summary>
+            Get the screen height in millimeters
+            </summary>
+            <returns>Screen height in millimeters (if there is no eye tracker, returns NaN)</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.CalcPixelPitch(System.Boolean)">
+            <summary>
+            Calculate the pixel pitch. To use this method, you must specify a screen dimension in the constructor.
+            </summary>
+            <param name="calcHorizontalPitch">If false, calculate a vertical pixel pitch</param>
+            <returns>A horizontal or vertical pixel pitch or NaN</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.CalcPixelsFromMillimeters(System.Double,System.Boolean)">
+            <summary>
+            Calculate pixels from millimeters. To use this method, you must specify a screen dimension in the constructor.
+            </summary>
+            <param name="millimeters">Length in millimeters</param>
+            <param name="useHorizontalPitch">if false, use vertical pixel pitch</param>
+            <returns>pixels (based on the dimensions set in the constructor) or NaN</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.CalcMillimetersFromPixels(System.Double,System.Boolean)">
+            <summary>
+            Calculate millimeters from pixels. To use this method, you must specify a screen dimension in the constructor.
+            </summary>
+            <param name="pixels">Length in pixels</param>
+            <param name="useHorizontalPitch">if false, use vertical pixel pitch</param>
+            <returns>millimeters (dependent on the dimensions set in the constructor) or NaN</returns>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.StartReceivingGazeData">
+            <summary>
+            Start for receiving gaze data. Before calling it, you must set <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>
+            </summary>
+            <exception cref="T:System.InvalidOperationException">TobiiEyeTracker.OnGazeData is null</exception>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.StopReceivingGazeData">
+            <summary>
+            Stop for receiving gaze data. Before calling it, you must set <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>
+            </summary>
+            <exception cref="T:System.InvalidOperationException">TobiiSBEyeTracker.OnGazeData is null</exception>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.CalcAngularVelocityFrom(System.Int32,Tobii.Research.GazePoint,Tobii.Research.GazeOrigin,Tobii.Research.GazePoint,Tobii.Research.GazeOrigin)">
+            <summary>
+            Calculate Angular Velocity from interval and gaze point/origin data.
+            </summary>
+            <param name="timeInterval">Time interval in usec.</param>
+            <param name="currentGazePoint">Current gaze point with Tobii.Reseach.GazePoint</param>
+            <param name="currentGazeOrigin">Current gaze origin with Tobii.Reseach.GazeOrigin</param>
+            <param name="prevGazePoint">Previous gaze point with Tobii.Reseach.GazePoint</param>
+            <param name="prevGazeOrigin">Previous gaze origin with Tobii.Reseach.GazeOrigin</param>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GazeDataReceived(System.Object,Tobii.Research.GazeDataEventArgs)">
+            <summary>
+            Internal gaze data receive handler for <c>Tobii.Research.IEyeTracker.GazeDataReceived</c>
+            </summary>
+            <param name="sender">Event sender</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:EyeTracking.EyeTrackerIdentification">
+            <summary>
+            Way to specify eyetrackers at overloaded <c>EyeTracker</c> constructor.
+            </summary>
+            <seealso cref="M:EyeTracking.TobiiSBEyeTracker.#ctor(EyeTracking.EyeTrackerIdentification,System.String,System.Double,System.Double,EyeTracking.VelocityCalcType,System.Int32,System.Int32)"/>
+        </member>
+        <member name="F:EyeTracking.EyeTrackerIdentification.DeviceName">
+            <summary>
+            Device Name of the device.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeTrackerIdentification.SerialNumber">
+            <summary>
+            Serial Number of the device.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeTrackerIdentification.Model">
+            <summary>
+            Model of the device.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeTrackerIdentification.FirmwareVersion">
+            <summary>
+            Firmware Version of the device.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeTrackerIdentification.RuntimeVersion">
+            <summary>
+            Runtime Version of the device.
+            </summary>
+        </member>
+        <member name="T:EyeTracking.VelocityCalcType">
+            <summary>
+            Enum to specify gaze angular velocity calculation type
+            </summary>
+        </member>
+        <member name="F:EyeTracking.VelocityCalcType.UCSGazeVector">
+            <summary>
+            Calculate velocity using UCS gaze vectors from gaze origin to gaze point.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.VelocityCalcType.PixelPitchAndUCSDistance">
+            <summary>
+            Calculate velocity using the pixel pitch and the distance from gaze origin to gaze point.
+            </summary>
+        </member>
+        <member name="T:EyeTracking.EyeMovementType">
+            <summary>
+            Enum to describe eye movement
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeMovementType.Fixation">
+            <summary>
+            Fixation
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeMovementType.NotASaccade">
+            <summary>
+            Not a saccade, not a fixation
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeMovementType.Saccade">
+            <summary>
+            Saccade
+            </summary>
+        </member>
+        <member name="F:EyeTracking.EyeMovementType.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="T:EyeTracking.OnGazeDataEventArgs">
+            <summary>
+            EventArgs for <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.DeviceTimeStamp">
+            <summary>
+            Device Time Stamp.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.SystemTimeStamp">
+            <summary>
+            System Time Stamp.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.LeftX">
+            <summary>
+            X Coordinate of the Left eye gaze in the user display area. 
+            <c>0.0</c> is the left edge, <c>1.0</c> or <c>screenWidth</c> is the right edge of the screen.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.RightX">
+            <summary>
+            X Coordinate of the Right eye gaze in the user display area. 
+            <c>0.0</c> is the left edge, <c>1.0</c> or <c>screenWidth</c> is the right edge of the screen.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.LeftY">
+            <summary>
+            Y Coordinate of the Left eye gaze in the user display area. 
+            <c>0.0</c> is the top edge, <c>1.0</c> or <c>screenHeight</c> is the bottom edge of the screen.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.RightY">
+            <summary>
+            Y Coordinate of the Right eye gaze in the user display area. 
+            <c>0.0</c> is the top edge, <c>1.0</c> or <c>screenHeight</c> is the bottom edge of the screen.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.IsLeftValid">
+            <summary>
+            If the Left eye is closed or couldn't get valid data, it becomes false.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.IsRightValid">
+            <summary>
+            If the Right eye is closed or couldn't get valid data, it becomes false.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.SystemTimeStampInterval">
+            <summary>
+            Interval between the previous system time stamp and the latest system time stamp
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.LeftGazeAngularVelocity">
+            <summary>
+            Angular Velocity for Left Gaze in deg/s
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.RightGazeAngularVelocity">
+            <summary>
+            Angular Velocity for Right Gaze in deg/s
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.LeftEyeMovementType">
+            <summary>
+            [Left Eye] Movement Type (Saccade, Not A Saccade, Fixation, Unknown)
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.RightEyeMovementType">
+            <summary>
+            [Left Eye] Movement Type (Saccade, Not A Saccade, Fixation, Unknown)
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -8,6 +8,10 @@
     <Description>A simplified driver library for Tobii screen-based eye trackers. Requires x64 CPU.</Description>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DocumentationFile>C:\Users\taku\source\repos\EyeTracking\TobiiSBETDriver\TobiiSBETDriver.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="Tobii.Research.x64" Version="1.9.0.1198" />
