@@ -812,9 +812,9 @@ private void AMethodCalledEveryCycle(float leftPD, float rightPD, bool validity)
     PupilDataForProcess newData;
     newData.PupilDiameter = (leftPD + rightPD) / 2.0f;
     newData.Validity = validity;
-    if(this.lfhfProcessor.UpdateWith(newData) == LFHFComputeStatus.Ready)
+    if(this.processor.UpdateWith(newData) == LFHFComputeStatus.Ready)
     {
-        float lfhf = this.lfhfUtility.LatestLFHF;
+        float lfhf = this.processor.LatestLFHF;
         Debug.Print($"LFHF: {lfhf}");
     }
 }
