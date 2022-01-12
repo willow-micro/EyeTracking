@@ -84,6 +84,11 @@
             Not a saccade time duration threshold in ms. For fixation detection.
             </summary>
         </member>
+        <member name="F:EyeTracking.TobiiSBEyeTracker.isEyeTrackingStarted">
+            <summary>
+            Check if the eye tracking is started or not
+            </summary>
+        </member>
         <member name="T:EyeTracking.TobiiSBEyeTracker.OnGazeDataEventHandler">
             <summary>
             Delegate for the event <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>
@@ -161,6 +166,12 @@
             </summary>
             <returns>Tobii.Research.DisplayArea (if there is no device, returns null)</returns>
         </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.GetFrequency">
+            <summary>
+            Get the frequency of the eye tracker.
+            </summary>
+            <returns>float (if there is no device, returns null)</returns>
+        </member>
         <member name="M:EyeTracking.TobiiSBEyeTracker.GetScreenWidthInPixels">
             <summary>
             Get the screen width in pixels (same as constructor's screenWidth)
@@ -219,6 +230,27 @@
             Stop for receiving gaze data. Before calling it, you must set <see cref="E:EyeTracking.TobiiSBEyeTracker.OnGazeData"/>
             </summary>
             <exception cref="T:System.InvalidOperationException">TobiiSBEyeTracker.OnGazeData is null</exception>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.ChangeVCalcType(EyeTracking.VelocityCalcType)">
+            <summary>
+            Change velocity calculation type
+            </summary>
+            <param name="vCalcType">Calculation type for gaze angular velocity</param>
+            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.ChangeFixationVelocityThresh(System.Int32)">
+            <summary>
+            Change fixation velocity threshold
+            </summary>
+            <param name="fixationVelocityThresh">Angular velocity threshold [rad/s] for classifying eye movements, saccade or not a saccade</param>
+            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
+        </member>
+        <member name="M:EyeTracking.TobiiSBEyeTracker.ChangeFixationDurationThresh(System.Int32)">
+            <summary>
+            Change fixation duration threshold
+            </summary>
+            <param name="fixationDurationThresh">Time duration threshold [ms] for classifying eye movements, not a saccade or fixation</param>
+            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
         </member>
         <member name="M:EyeTracking.TobiiSBEyeTracker.CalcAngularVelocityFrom(System.Int32,Tobii.Research.GazePoint,Tobii.Research.GazeOrigin,Tobii.Research.GazePoint,Tobii.Research.GazeOrigin)">
             <summary>

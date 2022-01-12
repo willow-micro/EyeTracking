@@ -35,6 +35,7 @@
   - [device](#F-EyeTracking-TobiiSBEyeTracker-device 'EyeTracking.TobiiSBEyeTracker.device')
   - [fixationAngularVelocityThreshold](#F-EyeTracking-TobiiSBEyeTracker-fixationAngularVelocityThreshold 'EyeTracking.TobiiSBEyeTracker.fixationAngularVelocityThreshold')
   - [horizontalPixelPitch](#F-EyeTracking-TobiiSBEyeTracker-horizontalPixelPitch 'EyeTracking.TobiiSBEyeTracker.horizontalPixelPitch')
+  - [isEyeTrackingStarted](#F-EyeTracking-TobiiSBEyeTracker-isEyeTrackingStarted 'EyeTracking.TobiiSBEyeTracker.isEyeTrackingStarted')
   - [leftEyeNotASaccadeDurationMs](#F-EyeTracking-TobiiSBEyeTracker-leftEyeNotASaccadeDurationMs 'EyeTracking.TobiiSBEyeTracker.leftEyeNotASaccadeDurationMs')
   - [notASaccadeDurationThresholdMs](#F-EyeTracking-TobiiSBEyeTracker-notASaccadeDurationThresholdMs 'EyeTracking.TobiiSBEyeTracker.notASaccadeDurationThresholdMs')
   - [prevLeftGazeOrigin](#F-EyeTracking-TobiiSBEyeTracker-prevLeftGazeOrigin 'EyeTracking.TobiiSBEyeTracker.prevLeftGazeOrigin')
@@ -51,10 +52,14 @@
   - [CalcMillimetersFromPixels(pixels,useHorizontalPitch)](#M-EyeTracking-TobiiSBEyeTracker-CalcMillimetersFromPixels-System-Double,System-Boolean- 'EyeTracking.TobiiSBEyeTracker.CalcMillimetersFromPixels(System.Double,System.Boolean)')
   - [CalcPixelPitch(calcHorizontalPitch)](#M-EyeTracking-TobiiSBEyeTracker-CalcPixelPitch-System-Boolean- 'EyeTracking.TobiiSBEyeTracker.CalcPixelPitch(System.Boolean)')
   - [CalcPixelsFromMillimeters(millimeters,useHorizontalPitch)](#M-EyeTracking-TobiiSBEyeTracker-CalcPixelsFromMillimeters-System-Double,System-Boolean- 'EyeTracking.TobiiSBEyeTracker.CalcPixelsFromMillimeters(System.Double,System.Boolean)')
+  - [ChangeFixationDurationThresh(fixationDurationThresh)](#M-EyeTracking-TobiiSBEyeTracker-ChangeFixationDurationThresh-System-Int32- 'EyeTracking.TobiiSBEyeTracker.ChangeFixationDurationThresh(System.Int32)')
+  - [ChangeFixationVelocityThresh(fixationVelocityThresh)](#M-EyeTracking-TobiiSBEyeTracker-ChangeFixationVelocityThresh-System-Int32- 'EyeTracking.TobiiSBEyeTracker.ChangeFixationVelocityThresh(System.Int32)')
+  - [ChangeVCalcType(vCalcType)](#M-EyeTracking-TobiiSBEyeTracker-ChangeVCalcType-EyeTracking-VelocityCalcType- 'EyeTracking.TobiiSBEyeTracker.ChangeVCalcType(EyeTracking.VelocityCalcType)')
   - [GazeDataReceived(sender,e)](#M-EyeTracking-TobiiSBEyeTracker-GazeDataReceived-System-Object,Tobii-Research-GazeDataEventArgs- 'EyeTracking.TobiiSBEyeTracker.GazeDataReceived(System.Object,Tobii.Research.GazeDataEventArgs)')
   - [GetDeviceName()](#M-EyeTracking-TobiiSBEyeTracker-GetDeviceName 'EyeTracking.TobiiSBEyeTracker.GetDeviceName')
   - [GetDisplayArea()](#M-EyeTracking-TobiiSBEyeTracker-GetDisplayArea 'EyeTracking.TobiiSBEyeTracker.GetDisplayArea')
   - [GetFirmwareVersion()](#M-EyeTracking-TobiiSBEyeTracker-GetFirmwareVersion 'EyeTracking.TobiiSBEyeTracker.GetFirmwareVersion')
+  - [GetFrequency()](#M-EyeTracking-TobiiSBEyeTracker-GetFrequency 'EyeTracking.TobiiSBEyeTracker.GetFrequency')
   - [GetModel()](#M-EyeTracking-TobiiSBEyeTracker-GetModel 'EyeTracking.TobiiSBEyeTracker.GetModel')
   - [GetRuntimeVersion()](#M-EyeTracking-TobiiSBEyeTracker-GetRuntimeVersion 'EyeTracking.TobiiSBEyeTracker.GetRuntimeVersion')
   - [GetScreenHeightInMillimeters()](#M-EyeTracking-TobiiSBEyeTracker-GetScreenHeightInMillimeters 'EyeTracking.TobiiSBEyeTracker.GetScreenHeightInMillimeters')
@@ -362,6 +367,13 @@ Angular velocity threshold [rad/s] for classifying eye movement, fixation or sac
 
 Horizontal pixel pitch
 
+<a name='F-EyeTracking-TobiiSBEyeTracker-isEyeTrackingStarted'></a>
+### isEyeTrackingStarted `constants`
+
+##### Summary
+
+Check if the eye tracking is started or not
+
 <a name='F-EyeTracking-TobiiSBEyeTracker-leftEyeNotASaccadeDurationMs'></a>
 ### leftEyeNotASaccadeDurationMs `constants`
 
@@ -516,6 +528,63 @@ pixels (based on the dimensions set in the constructor) or NaN
 | millimeters | [System.Double](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Double 'System.Double') | Length in millimeters |
 | useHorizontalPitch | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | if false, use vertical pixel pitch |
 
+<a name='M-EyeTracking-TobiiSBEyeTracker-ChangeFixationDurationThresh-System-Int32-'></a>
+### ChangeFixationDurationThresh(fixationDurationThresh) `method`
+
+##### Summary
+
+Change fixation duration threshold
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fixationDurationThresh | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Time duration threshold [ms] for classifying eye movements, not a saccade or fixation |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.InvalidOperationException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.InvalidOperationException 'System.InvalidOperationException') | EyeTracking is not started. Cannot change parameters now. |
+
+<a name='M-EyeTracking-TobiiSBEyeTracker-ChangeFixationVelocityThresh-System-Int32-'></a>
+### ChangeFixationVelocityThresh(fixationVelocityThresh) `method`
+
+##### Summary
+
+Change fixation velocity threshold
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fixationVelocityThresh | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Angular velocity threshold [rad/s] for classifying eye movements, saccade or not a saccade |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.InvalidOperationException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.InvalidOperationException 'System.InvalidOperationException') | EyeTracking is not started. Cannot change parameters now. |
+
+<a name='M-EyeTracking-TobiiSBEyeTracker-ChangeVCalcType-EyeTracking-VelocityCalcType-'></a>
+### ChangeVCalcType(vCalcType) `method`
+
+##### Summary
+
+Change velocity calculation type
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| vCalcType | [EyeTracking.VelocityCalcType](#T-EyeTracking-VelocityCalcType 'EyeTracking.VelocityCalcType') | Calculation type for gaze angular velocity |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.InvalidOperationException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.InvalidOperationException 'System.InvalidOperationException') | EyeTracking is not started. Cannot change parameters now. |
+
 <a name='M-EyeTracking-TobiiSBEyeTracker-GazeDataReceived-System-Object,Tobii-Research-GazeDataEventArgs-'></a>
 ### GazeDataReceived(sender,e) `method`
 
@@ -570,6 +639,21 @@ Get the Firmware Version for the eye tracker.
 ##### Returns
 
 Firmware Version (if there is no device, returns null)
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-EyeTracking-TobiiSBEyeTracker-GetFrequency'></a>
+### GetFrequency() `method`
+
+##### Summary
+
+Get the frequency of the eye tracker.
+
+##### Returns
+
+float (if there is no device, returns null)
 
 ##### Parameters
 
