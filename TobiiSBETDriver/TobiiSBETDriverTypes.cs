@@ -136,5 +136,21 @@ namespace EyeTracking
         /// [Left Eye] Movement Type (Saccade, Not A Saccade, Fixation, Unknown)
         /// </summary>
         public EyeMovementType RightEyeMovementType;
+        /// <summary>
+        /// If the Left eye pupil diameter is invalid, it becomes false.
+        /// </summary>
+        public bool IsLeftPDValid;
+        /// <summary>
+        /// If the Right eye pupil diameter is invalid, it becomes false.
+        /// </summary>
+        public bool IsRightPDValid;
+        /// <summary>
+        /// [Left Eye] Pupil Diameter [mm]
+        /// </summary>
+        public float LeftPD;
+        /// <summary>
+        /// [Right Eye] Pupil Diameter [mm]
+        /// </summary>
+        public float RightPD;
     }
 }

@@ -492,7 +492,7 @@ namespace EyeTracking
         /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
         public void ChangeVCalcType(VelocityCalcType vCalcType)
         {
-            if (isEyeTrackingStarted)
+            if (!isEyeTrackingStarted)
             {
                 velocityCalcType = vCalcType;
             }
@@ -509,7 +509,7 @@ namespace EyeTracking
         /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
         public void ChangeFixationVelocityThresh(int fixationVelocityThresh)
         {
-            if (isEyeTrackingStarted)
+            if (!isEyeTrackingStarted)
             {
                 fixationAngularVelocityThreshold = fixationVelocityThresh;
             }
@@ -526,7 +526,7 @@ namespace EyeTracking
         /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
         public void ChangeFixationDurationThresh(int fixationDurationThresh)
         {
-            if (isEyeTrackingStarted)
+            if (!isEyeTrackingStarted)
             {
                 notASaccadeDurationThresholdMs = fixationDurationThresh;
             }
@@ -716,7 +716,11 @@ namespace EyeTracking
                 LeftGazeAngularVelocity = leftAngularVelocity,
                 RightGazeAngularVelocity = rightAngularVelocity,
                 LeftEyeMovementType = leftEyeMovementType,
-                RightEyeMovementType = rightEyeMovementType
+                RightEyeMovementType = rightEyeMovementType,
+                IsLeftPDValid = e.LeftEye.Pupil.Validity == Validity.Valid,
+                IsRightPDValid = e.RightEye.Pupil.Validity == Validity.Valid,
+                LeftPD = e.LeftEye.Pupil.PupilDiameter,
+                RightPD = e.RightEye.Pupil.PupilDiameter
             };
             OnGazeData?.Invoke(this, gazeDataUsingScreenDimension);
 

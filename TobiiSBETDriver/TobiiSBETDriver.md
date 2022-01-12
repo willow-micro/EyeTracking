@@ -16,14 +16,18 @@
   - [SerialNumber](#F-EyeTracking-EyeTrackerIdentification-SerialNumber 'EyeTracking.EyeTrackerIdentification.SerialNumber')
 - [OnGazeDataEventArgs](#T-EyeTracking-OnGazeDataEventArgs 'EyeTracking.OnGazeDataEventArgs')
   - [DeviceTimeStamp](#F-EyeTracking-OnGazeDataEventArgs-DeviceTimeStamp 'EyeTracking.OnGazeDataEventArgs.DeviceTimeStamp')
+  - [IsLeftPDValid](#F-EyeTracking-OnGazeDataEventArgs-IsLeftPDValid 'EyeTracking.OnGazeDataEventArgs.IsLeftPDValid')
   - [IsLeftValid](#F-EyeTracking-OnGazeDataEventArgs-IsLeftValid 'EyeTracking.OnGazeDataEventArgs.IsLeftValid')
+  - [IsRightPDValid](#F-EyeTracking-OnGazeDataEventArgs-IsRightPDValid 'EyeTracking.OnGazeDataEventArgs.IsRightPDValid')
   - [IsRightValid](#F-EyeTracking-OnGazeDataEventArgs-IsRightValid 'EyeTracking.OnGazeDataEventArgs.IsRightValid')
   - [LeftEyeMovementType](#F-EyeTracking-OnGazeDataEventArgs-LeftEyeMovementType 'EyeTracking.OnGazeDataEventArgs.LeftEyeMovementType')
   - [LeftGazeAngularVelocity](#F-EyeTracking-OnGazeDataEventArgs-LeftGazeAngularVelocity 'EyeTracking.OnGazeDataEventArgs.LeftGazeAngularVelocity')
+  - [LeftPD](#F-EyeTracking-OnGazeDataEventArgs-LeftPD 'EyeTracking.OnGazeDataEventArgs.LeftPD')
   - [LeftX](#F-EyeTracking-OnGazeDataEventArgs-LeftX 'EyeTracking.OnGazeDataEventArgs.LeftX')
   - [LeftY](#F-EyeTracking-OnGazeDataEventArgs-LeftY 'EyeTracking.OnGazeDataEventArgs.LeftY')
   - [RightEyeMovementType](#F-EyeTracking-OnGazeDataEventArgs-RightEyeMovementType 'EyeTracking.OnGazeDataEventArgs.RightEyeMovementType')
   - [RightGazeAngularVelocity](#F-EyeTracking-OnGazeDataEventArgs-RightGazeAngularVelocity 'EyeTracking.OnGazeDataEventArgs.RightGazeAngularVelocity')
+  - [RightPD](#F-EyeTracking-OnGazeDataEventArgs-RightPD 'EyeTracking.OnGazeDataEventArgs.RightPD')
   - [RightX](#F-EyeTracking-OnGazeDataEventArgs-RightX 'EyeTracking.OnGazeDataEventArgs.RightX')
   - [RightY](#F-EyeTracking-OnGazeDataEventArgs-RightY 'EyeTracking.OnGazeDataEventArgs.RightY')
   - [SystemTimeStamp](#F-EyeTracking-OnGazeDataEventArgs-SystemTimeStamp 'EyeTracking.OnGazeDataEventArgs.SystemTimeStamp')
@@ -180,12 +184,26 @@ EventArgs for [](#E-EyeTracking-TobiiSBEyeTracker-OnGazeData 'EyeTracking.TobiiS
 
 Device Time Stamp.
 
+<a name='F-EyeTracking-OnGazeDataEventArgs-IsLeftPDValid'></a>
+### IsLeftPDValid `constants`
+
+##### Summary
+
+If the Left eye pupil diameter is invalid, it becomes false.
+
 <a name='F-EyeTracking-OnGazeDataEventArgs-IsLeftValid'></a>
 ### IsLeftValid `constants`
 
 ##### Summary
 
 If the Left eye is closed or couldn't get valid data, it becomes false.
+
+<a name='F-EyeTracking-OnGazeDataEventArgs-IsRightPDValid'></a>
+### IsRightPDValid `constants`
+
+##### Summary
+
+If the Right eye pupil diameter is invalid, it becomes false.
 
 <a name='F-EyeTracking-OnGazeDataEventArgs-IsRightValid'></a>
 ### IsRightValid `constants`
@@ -207,6 +225,13 @@ If the Right eye is closed or couldn't get valid data, it becomes false.
 ##### Summary
 
 Angular Velocity for Left Gaze in deg/s
+
+<a name='F-EyeTracking-OnGazeDataEventArgs-LeftPD'></a>
+### LeftPD `constants`
+
+##### Summary
+
+[Left Eye] Pupil Diameter [mm]
 
 <a name='F-EyeTracking-OnGazeDataEventArgs-LeftX'></a>
 ### LeftX `constants`
@@ -237,6 +262,13 @@ Y Coordinate of the Left eye gaze in the user display area.
 ##### Summary
 
 Angular Velocity for Right Gaze in deg/s
+
+<a name='F-EyeTracking-OnGazeDataEventArgs-RightPD'></a>
+### RightPD `constants`
+
+##### Summary
+
+[Right Eye] Pupil Diameter [mm]
 
 <a name='F-EyeTracking-OnGazeDataEventArgs-RightX'></a>
 ### RightX `constants`

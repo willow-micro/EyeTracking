@@ -414,5 +414,25 @@
             [Left Eye] Movement Type (Saccade, Not A Saccade, Fixation, Unknown)
             </summary>
         </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.IsLeftPDValid">
+            <summary>
+            If the Left eye pupil diameter is invalid, it becomes false.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.IsRightPDValid">
+            <summary>
+            If the Right eye pupil diameter is invalid, it becomes false.
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.LeftPD">
+            <summary>
+            [Left Eye] Pupil Diameter [mm]
+            </summary>
+        </member>
+        <member name="F:EyeTracking.OnGazeDataEventArgs.RightPD">
+            <summary>
+            [Right Eye] Pupil Diameter [mm]
+            </summary>
+        </member>
     </members>
 </doc>
