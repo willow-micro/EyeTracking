@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EyeTracking</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>0.0.1-alpha.5</Version>
+    <Version>0.0.1-beta.1</Version>
     <Description>A simplified driver library for Tobii screen-based eye trackers. Requires x64 CPU.</Description>
     <Copyright>Copyright (C) 2021-2022 T.Kawamura</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -13,6 +13,7 @@
     <PackageTags>EyeTracking</PackageTags>
     <Company>Wakayama University Human Centered Design Laboratory</Company>
     <Authors>Takuma Kawamura</Authors>
+    <RepositoryUrl>https://github.com/willow-micro/EyeTracking</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

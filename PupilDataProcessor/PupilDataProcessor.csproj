@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EyeTracking</RootNamespace>
-    <Version>0.0.1-alpha.1</Version>
+    <Version>0.0.1-beta.1</Version>
     <Description>Process pupil data (diameter &amp; validity) and compute LF/HF ratio and more.</Description>
     <Copyright>Copyright (C) 2021-2022 T.Kawamura</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -12,6 +12,7 @@
     <PackageTags>EyeTracking Pupil</PackageTags>
     <Authors>Takuma Kawamura</Authors>
     <Company>Wakayama University Human Centered Design Laboratory</Company>
+    <RepositoryUrl>https://github.com/willow-micro/EyeTracking</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
