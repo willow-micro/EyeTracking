@@ -1,4 +1,5 @@
 ﻿// Target: .NET Standard 2.0
+
 // Default
 using System;
 // Additional
@@ -64,17 +65,17 @@ namespace EyeTracking
         /// </summary>
         private long prevSystemTimeStamp;
         /// <summary>
-        /// [Left Eye] Not a saccade time duration in ms. For fixation detection.
+        /// [Left Eye] Pre-fixation time duration in ms. For fixation detection.
         /// </summary>
-        private int leftEyeNotASaccadeDurationMs;
+        private int leftEyePreFixationDurationMs;
         /// <summary>
-        /// [Right Eye] Not a saccade time duration in ms. For fixation detection.
+        /// [Right Eye] Pre-fixation time duration in ms. For fixation detection.
         /// </summary>
-        private int rightEyeNotASaccadeDurationMs;
+        private int rightEyePreFixationDurationMs;
         /// <summary>
-        /// Not a saccade time duration threshold in ms. For fixation detection.
+        /// Pre-fixation time duration threshold in ms. For fixation detection.
         /// </summary>
-        private int notASaccadeDurationThresholdMs;
+        private int preFixationDurationThresholdMs;
         /// <summary>
         /// Check if the eye tracking is started or not
         /// </summary>
@@ -95,7 +96,7 @@ namespace EyeTracking
         /// EventHandler for make gaze data available from user
         /// </summary>
         /// <remarks>
-        /// If you specify a screen dimension in the constructor, that changes max values for gaze positions.
+        /// If you specify a screen dimension in the constructor, that Modifys max values for gaze positions.
         /// </remarks>
         public event OnGazeDataEventHandler OnGazeData;
         #endregion
@@ -115,9 +116,9 @@ namespace EyeTracking
         {
             velocityCalcType = vCalcType;
             fixationAngularVelocityThreshold = fixationVelocityThresh;
-            leftEyeNotASaccadeDurationMs = 0;
-            rightEyeNotASaccadeDurationMs = 0;
-            notASaccadeDurationThresholdMs = fixationDurationThresh;
+            leftEyePreFixationDurationMs = 0;
+            rightEyePreFixationDurationMs = 0;
+            preFixationDurationThresholdMs = fixationDurationThresh;
             isEyeTrackingStarted = false;
 
             EyeTrackerCollection eyeTrackers = EyeTrackingOperations.FindAllEyeTrackers();
@@ -156,9 +157,9 @@ namespace EyeTracking
         {
             velocityCalcType = vCalcType;
             fixationAngularVelocityThreshold = fixationVelocityThresh;
-            leftEyeNotASaccadeDurationMs = 0;
-            rightEyeNotASaccadeDurationMs = 0;
-            notASaccadeDurationThresholdMs = fixationDurationThresh;
+            leftEyePreFixationDurationMs = 0;
+            rightEyePreFixationDurationMs = 0;
+            preFixationDurationThresholdMs = fixationDurationThresh;
             isEyeTrackingStarted = false;
 
             EyeTrackerCollection eyeTrackers = EyeTrackingOperations.FindAllEyeTrackers();
@@ -486,11 +487,11 @@ namespace EyeTracking
         }
 
         /// <summary>
-        /// Change velocity calculation type
+        /// Modify velocity calculation type
         /// </summary>
         /// <param name="vCalcType">Calculation type for gaze angular velocity</param>
-        /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
-        public void ChangeVCalcType(VelocityCalcType vCalcType)
+        /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot modify parameters now.</exception>
+        public void ModifyVCalcType(VelocityCalcType vCalcType)
         {
             if (!isEyeTrackingStarted)
             {
@@ -498,16 +499,16 @@ namespace EyeTracking
             }
             else
             {
-                throw new InvalidOperationException("EyeTracking is not started. Cannot change parameters now.");
+                throw new InvalidOperationException("EyeTracking is not started. Cannot modify parameters now.");
             }
         }
 
         /// <summary>
-        /// Change fixation velocity threshold
+        /// Modify fixation velocity threshold
         /// </summary>
         /// <param name="fixationVelocityThresh">Angular velocity threshold [rad/s] for classifying eye movements, saccade or not a saccade</param>
-        /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
-        public void ChangeFixationVelocityThresh(int fixationVelocityThresh)
+        /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot modify parameters now.</exception>
+        public void ModifyFixationVelocityThresh(int fixationVelocityThresh)
         {
             if (!isEyeTrackingStarted)
             {
@@ -515,24 +516,24 @@ namespace EyeTracking
             }
             else
             {
-                throw new InvalidOperationException("EyeTracking is not started. Cannot change parameters now.");
+                throw new InvalidOperationException("EyeTracking is not started. Cannot modify parameters now.");
             }
         }
 
         /// <summary>
-        /// Change fixation duration threshold
+        /// Modify fixation duration threshold
         /// </summary>
         /// <param name="fixationDurationThresh">Time duration threshold [ms] for classifying eye movements, not a saccade or fixation</param>
-        /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
-        public void ChangeFixationDurationThresh(int fixationDurationThresh)
+        /// <exception cref="InvalidOperationException">EyeTracking is not started. Cannot modify parameters now.</exception>
+        public void ModifyFixationDurationThresh(int fixationDurationThresh)
         {
             if (!isEyeTrackingStarted)
             {
-                notASaccadeDurationThresholdMs = fixationDurationThresh;
+                preFixationDurationThresholdMs = fixationDurationThresh;
             }
             else
             {
-                throw new InvalidOperationException("EyeTracking is not started. Cannot change parameters now.");
+                throw new InvalidOperationException("EyeTracking is not started. Cannot modify parameters now.");
             }
         }
         #endregion
@@ -656,16 +657,16 @@ namespace EyeTracking
                 }
                 else
                 {
-                    leftEyeMovementType = (leftAngularVelocity > fixationAngularVelocityThreshold) ? EyeMovementType.Saccade : EyeMovementType.NotASaccade;
-                    if (leftEyeMovementType == EyeMovementType.NotASaccade)
+                    leftEyeMovementType = (leftAngularVelocity > fixationAngularVelocityThreshold) ? EyeMovementType.Saccade : EyeMovementType.PreFixation;
+                    if (leftEyeMovementType == EyeMovementType.PreFixation)
                     {
-                        leftEyeNotASaccadeDurationMs += (int)(systemTimeStampInterval / 1000);
+                        leftEyePreFixationDurationMs += (int)(systemTimeStampInterval / 1000);
                     }
                     else
                     {
-                        leftEyeNotASaccadeDurationMs = 0;
+                        leftEyePreFixationDurationMs = 0;
                     }
-                    if (leftEyeNotASaccadeDurationMs >= notASaccadeDurationThresholdMs)
+                    if (leftEyePreFixationDurationMs >= preFixationDurationThresholdMs)
                     {
                         leftEyeMovementType = EyeMovementType.Fixation;
                     }
@@ -677,16 +678,16 @@ namespace EyeTracking
                 }
                 else
                 {
-                    rightEyeMovementType = (rightAngularVelocity > fixationAngularVelocityThreshold) ? EyeMovementType.Saccade : EyeMovementType.NotASaccade;
-                    if (rightEyeMovementType == EyeMovementType.NotASaccade)
+                    rightEyeMovementType = (rightAngularVelocity > fixationAngularVelocityThreshold) ? EyeMovementType.Saccade : EyeMovementType.PreFixation;
+                    if (rightEyeMovementType == EyeMovementType.PreFixation)
                     {
-                        rightEyeNotASaccadeDurationMs += (int)(systemTimeStampInterval / 1000);
+                        rightEyePreFixationDurationMs += (int)(systemTimeStampInterval / 1000);
                     }
                     else
                     {
-                        rightEyeNotASaccadeDurationMs = 0;
+                        rightEyePreFixationDurationMs = 0;
                     }
-                    if (rightEyeNotASaccadeDurationMs >= notASaccadeDurationThresholdMs)
+                    if (rightEyePreFixationDurationMs >= preFixationDurationThresholdMs)
                     {
                         rightEyeMovementType = EyeMovementType.Fixation;
                     }

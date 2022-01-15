@@ -62,9 +62,9 @@ namespace EyeTracking
         /// </summary>
         Fixation,
         /// <summary>
-        /// Not a saccade, not a fixation
+        /// Not a saccade, pre-fixation
         /// </summary>
-        NotASaccade,
+        PreFixation,
         /// <summary>
         /// Saccade
         /// </summary>

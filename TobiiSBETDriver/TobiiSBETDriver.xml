@@ -69,19 +69,19 @@
             Previous System time stamp [us]
             </summary>
         </member>
-        <member name="F:EyeTracking.TobiiSBEyeTracker.leftEyeNotASaccadeDurationMs">
+        <member name="F:EyeTracking.TobiiSBEyeTracker.leftEyePreFixationDurationMs">
             <summary>
-            [Left Eye] Not a saccade time duration in ms. For fixation detection.
+            [Left Eye] Pre-fixation time duration in ms. For fixation detection.
             </summary>
         </member>
-        <member name="F:EyeTracking.TobiiSBEyeTracker.rightEyeNotASaccadeDurationMs">
+        <member name="F:EyeTracking.TobiiSBEyeTracker.rightEyePreFixationDurationMs">
             <summary>
-            [Right Eye] Not a saccade time duration in ms. For fixation detection.
+            [Right Eye] Pre-fixation time duration in ms. For fixation detection.
             </summary>
         </member>
-        <member name="F:EyeTracking.TobiiSBEyeTracker.notASaccadeDurationThresholdMs">
+        <member name="F:EyeTracking.TobiiSBEyeTracker.preFixationDurationThresholdMs">
             <summary>
-            Not a saccade time duration threshold in ms. For fixation detection.
+            Pre-fixation time duration threshold in ms. For fixation detection.
             </summary>
         </member>
         <member name="F:EyeTracking.TobiiSBEyeTracker.isEyeTrackingStarted">
@@ -101,7 +101,7 @@
             EventHandler for make gaze data available from user
             </summary>
             <remarks>
-            If you specify a screen dimension in the constructor, that changes max values for gaze positions.
+            If you specify a screen dimension in the constructor, that Modifys max values for gaze positions.
             </remarks>
         </member>
         <member name="M:EyeTracking.TobiiSBEyeTracker.#ctor(System.Double,System.Double,EyeTracking.VelocityCalcType,System.Int32,System.Int32)">
@@ -231,26 +231,26 @@
             </summary>
             <exception cref="T:System.InvalidOperationException">TobiiSBEyeTracker.OnGazeData is null</exception>
         </member>
-        <member name="M:EyeTracking.TobiiSBEyeTracker.ChangeVCalcType(EyeTracking.VelocityCalcType)">
+        <member name="M:EyeTracking.TobiiSBEyeTracker.ModifyVCalcType(EyeTracking.VelocityCalcType)">
             <summary>
-            Change velocity calculation type
+            Modify velocity calculation type
             </summary>
             <param name="vCalcType">Calculation type for gaze angular velocity</param>
-            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
+            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot modify parameters now.</exception>
         </member>
-        <member name="M:EyeTracking.TobiiSBEyeTracker.ChangeFixationVelocityThresh(System.Int32)">
+        <member name="M:EyeTracking.TobiiSBEyeTracker.ModifyFixationVelocityThresh(System.Int32)">
             <summary>
-            Change fixation velocity threshold
+            Modify fixation velocity threshold
             </summary>
             <param name="fixationVelocityThresh">Angular velocity threshold [rad/s] for classifying eye movements, saccade or not a saccade</param>
-            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
+            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot modify parameters now.</exception>
         </member>
-        <member name="M:EyeTracking.TobiiSBEyeTracker.ChangeFixationDurationThresh(System.Int32)">
+        <member name="M:EyeTracking.TobiiSBEyeTracker.ModifyFixationDurationThresh(System.Int32)">
             <summary>
-            Change fixation duration threshold
+            Modify fixation duration threshold
             </summary>
             <param name="fixationDurationThresh">Time duration threshold [ms] for classifying eye movements, not a saccade or fixation</param>
-            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot change parameters now.</exception>
+            <exception cref="T:System.InvalidOperationException">EyeTracking is not started. Cannot modify parameters now.</exception>
         </member>
         <member name="M:EyeTracking.TobiiSBEyeTracker.CalcAngularVelocityFrom(System.Int32,Tobii.Research.GazePoint,Tobii.Research.GazeOrigin,Tobii.Research.GazePoint,Tobii.Research.GazeOrigin)">
             <summary>
@@ -325,9 +325,9 @@
             Fixation
             </summary>
         </member>
-        <member name="F:EyeTracking.EyeMovementType.NotASaccade">
+        <member name="F:EyeTracking.EyeMovementType.PreFixation">
             <summary>
-            Not a saccade, not a fixation
+            Not a saccade, pre-fixation
             </summary>
         </member>
         <member name="F:EyeTracking.EyeMovementType.Saccade">
