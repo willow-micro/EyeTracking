@@ -636,8 +636,8 @@ namespace EyeTracking
             }
 
             // Validity
-            bool isLeftValid = e.LeftEye.GazeOrigin.Validity == Validity.Valid && e.LeftEye.GazePoint.Validity == Validity.Valid;
-            bool isRightValid = e.RightEye.GazeOrigin.Validity == Validity.Valid && e.RightEye.GazePoint.Validity == Validity.Valid;
+            bool isLeftValid = e.LeftEye.GazeOrigin.Validity == Validity.Valid && e.LeftEye.GazePoint.Validity == Validity.Valid && e.LeftEye.GazePoint.PositionOnDisplayArea.X >= 0.0 && e.LeftEye.GazePoint.PositionOnDisplayArea.Y >= 0.0 && e.LeftEye.GazePoint.PositionOnDisplayArea.X <= 1.0 && e.LeftEye.GazePoint.PositionOnDisplayArea.Y <= 1.0;
+            bool isRightValid = e.RightEye.GazeOrigin.Validity == Validity.Valid && e.RightEye.GazePoint.Validity == Validity.Valid && e.RightEye.GazePoint.PositionOnDisplayArea.X >= 0.0 && e.RightEye.GazePoint.PositionOnDisplayArea.Y >= 0.0 && e.RightEye.GazePoint.PositionOnDisplayArea.X <= 1.0 && e.RightEye.GazePoint.PositionOnDisplayArea.Y <= 1.0;
 
             // Fixation
             double leftAngularVelocity;
@@ -707,21 +707,21 @@ namespace EyeTracking
             {
                 DeviceTimeStamp = e.DeviceTimeStamp,
                 SystemTimeStamp = e.SystemTimeStamp,
-                LeftX = (double)((e.LeftEye.GazePoint.PositionOnDisplayArea.X) * screenWidth),
-                RightX = (double)((e.RightEye.GazePoint.PositionOnDisplayArea.X) * screenWidth),
-                LeftY = (double)((e.LeftEye.GazePoint.PositionOnDisplayArea.Y) * screenHeight),
-                RightY = (double)((e.RightEye.GazePoint.PositionOnDisplayArea.Y) * screenHeight),
+                LeftX = Math.Min(Math.Max(e.LeftEye.GazePoint.PositionOnDisplayArea.X, 0.0), 1.0) * screenWidth,
+                RightX = Math.Min(Math.Max(e.RightEye.GazePoint.PositionOnDisplayArea.X, 0.0), 1.0) * screenWidth,
+                LeftY = Math.Min(Math.Max(e.LeftEye.GazePoint.PositionOnDisplayArea.Y, 0.0), 1.0) * screenHeight,
+                RightY = Math.Min(Math.Max(e.RightEye.GazePoint.PositionOnDisplayArea.Y, 0.0), 1.0) * screenHeight,
                 IsLeftValid = isLeftValid,
                 IsRightValid = isRightValid,
                 SystemTimeStampInterval = systemTimeStampInterval,
-                LeftGazeAngularVelocity = leftAngularVelocity,
-                RightGazeAngularVelocity = rightAngularVelocity,
+                LeftGazeAngularVelocity = leftAngularVelocity != double.NaN ? leftAngularVelocity : 0.0,
+                RightGazeAngularVelocity = rightAngularVelocity != double.NaN ? rightAngularVelocity : 0.0,
                 LeftEyeMovementType = leftEyeMovementType,
                 RightEyeMovementType = rightEyeMovementType,
                 IsLeftPDValid = e.LeftEye.Pupil.Validity == Validity.Valid,
                 IsRightPDValid = e.RightEye.Pupil.Validity == Validity.Valid,
-                LeftPD = e.LeftEye.Pupil.PupilDiameter,
-                RightPD = e.RightEye.Pupil.PupilDiameter
+                LeftPD = e.LeftEye.Pupil.Validity == Validity.Valid ? e.LeftEye.Pupil.PupilDiameter : 0.0,
+                RightPD = e.RightEye.Pupil.Validity == Validity.Valid ? e.RightEye.Pupil.PupilDiameter : 0.0
             };
             OnGazeData?.Invoke(this, gazeDataUsingScreenDimension);
 

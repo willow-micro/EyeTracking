@@ -147,10 +147,10 @@ namespace EyeTracking
         /// <summary>
         /// [Left Eye] Pupil Diameter [mm]
         /// </summary>
-        public float LeftPD;
+        public double LeftPD;
         /// <summary>
         /// [Right Eye] Pupil Diameter [mm]
         /// </summary>
-        public float RightPD;
+        public double RightPD;
     }
 }
