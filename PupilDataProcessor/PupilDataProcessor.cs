@@ -100,7 +100,14 @@ namespace EyeTracking
                 this.hasDataBufferFilledOnce = false;
                 this.validPupilDiameterCount = 0;
 
-                this.lfhfComputer = new LFHFComputer(eyeTrackingFrequency, lfRange, hfRange, this.WindowSize, windowFunction);
+                try
+                {
+                    this.lfhfComputer = new LFHFComputer(eyeTrackingFrequency, lfRange, hfRange, this.WindowSize, windowFunction);
+                }
+                catch(InvalidOperationException e)
+                {
+                    throw new InvalidOperationException(e.Message);
+                }
                 this.dataBuffer = new FIFO<PupilDataForProcess>(this.WindowSize);
             }
             else
@@ -152,8 +159,15 @@ namespace EyeTracking
                 this.hopCount = 0;
                 this.hasDataBufferFilledOnce = false;
                 this.validPupilDiameterCount = 0;
+                try
+                {
+                    this.lfhfComputer = new LFHFComputer(eyeTrackingFrequency, lfRange, hfRange, this.WindowSize, WindowFunction.HammingPeriodic);
+                }
+                catch (InvalidOperationException e)
+                {
+                    throw new InvalidOperationException(e.Message);
+                }
 
-                this.lfhfComputer = new LFHFComputer(eyeTrackingFrequency, lfRange, hfRange, this.WindowSize, WindowFunction.HammingPeriodic);
                 this.dataBuffer = new FIFO<PupilDataForProcess>(this.WindowSize);
             }
             else

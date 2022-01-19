@@ -50,6 +50,7 @@ namespace EyeTracking
         /// <param name="hfRange">[FrequencyRange] Frequency range of HF</param>
         /// <param name="windowSize">[int] Window size, Length of pupil data array. (2^0 to 2^16)</param>
         /// <exception cref="ArgumentOutOfRangeException">The given processFrequency or windowSize is incorrect</exception>
+        /// <exception cref="InvalidOperationException">LFHFComputer: The given LFRange.Min is bigger than Frequency Resolution (processFrequency / WindowSize)</exception>
         public LFHFComputer(int processFrequency, FrequencyRange lfRange, FrequencyRange hfRange, int windowSize)
         {
             // Check if not freq is zero or negative
@@ -67,6 +68,10 @@ namespace EyeTracking
                 this.WindowSize = windowSize;
                 this.window = Window.HammingPeriodic(this.WindowSize);
                 this.FrequencyResolution = (float)(processFrequency) / this.WindowSize;
+                if (this.FrequencyResolution > lfRange.Min)
+                {
+                    throw new InvalidOperationException("LFHFComputer: The given LFRange.Min is bigger than Frequency Resolution (processFrequency / WindowSize)");
+                }
             }
             else
             {
@@ -83,6 +88,7 @@ namespace EyeTracking
         /// <param name="windowSize">[int] Window size, Length of pupil data array. (2^0 to 2^16)</param>
         /// <param name="windowFunction">[WindowFunction] Window Function</param>
         /// <exception cref="ArgumentOutOfRangeException">The given processFrequency or windowSize is incorrect</exception>
+        /// <exception cref="InvalidOperationException">LFHFComputer: The given LFRange.Min is bigger than Frequency Resolution (processFrequency / WindowSize)</exception>
         public LFHFComputer(int processFrequency, FrequencyRange lfRange, FrequencyRange hfRange, int windowSize, WindowFunction windowFunction)
         {
             // Check if not freq is zero or negative
@@ -144,6 +150,10 @@ namespace EyeTracking
                         break;
                 }
                 this.FrequencyResolution = (float)(processFrequency) / this.WindowSize;
+                if (this.FrequencyResolution > lfRange.Min)
+                {
+                    throw new InvalidOperationException("LFHFComputer: The given LFRange.Min is bigger than Frequency Resolution (processFrequency / WindowSize)");
+                }
             }
             else
             {
