@@ -1,11 +1,14 @@
 # EyeTracking
 Eye tracking utilities for .NET
 
+## Licensing
+MIT License
+
 ## EyeTracking.PupilDataProcessor
 Process pupil data (diameter & validity) and compute LF/HF ratio and more.
 
 ### NuGet Package (pre-release)
-[NuGet Gallery | PupilDataProcessor 0.0.1-beta.1](https://www.nuget.org/packages/PupilDataProcessor/)
+[NuGet Gallery | PupilDataProcessor](https://www.nuget.org/packages/PupilDataProcessor/)
 
 ### Features
 - Device-independent (Screen-based eye trackers or HMD-based eye trackers)
@@ -15,14 +18,20 @@ Process pupil data (diameter & validity) and compute LF/HF ratio and more.
 - Strict exception throwing
 - .NET Standard 2.0
 
+### API References
+- Auto-generated markdown via vsxmd is found here: [EyeTracking/PupilDataProcessor.md](https://github.com/willow-micro/EyeTracking/blob/master/PupilDataProcessor/PupilDataProcessor.md)
+
 ## EyeTracking.TobiiSBETDriver
 A simplified driver library for Tobii screen-based eye trackers. Requires x64 CPU.
 
 ### NuGet Package (pre-release)
-[NuGet Gallery | TobiiSBETDriver 0.0.1-beta.1](https://www.nuget.org/packages/TobiiSBETDriver/)
+[NuGet Gallery | TobiiSBETDriver](https://www.nuget.org/packages/TobiiSBETDriver/)
 
 ### Features
 - Simplified wrapper library for Tobii screen-based eye trackers
 - Fixation detection with a angular velocity and time duration filter (Selectable threshold parameters)
 - Strict exception throwing
 - .NET Standard 2.0
+
+### API References
+- Auto-generated markdown via vsxmd is found here: [EyeTracking/TobiiSBETDriver.md](https://github.com/willow-micro/EyeTracking/blob/master/TobiiSBETDriver/TobiiSBETDriver.md)
